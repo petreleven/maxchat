@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Modern Chatbot Interface</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --primary-color: #6366f1;
+                --secondary-color: #818cf8;
+                --dark-bg: #0f172a;
+                --darker-bg: #0a0f1d;
+                --card-bg: #1e293b;
+                --text-primary: #e2e8f0;
+                --text-secondary: #94a3b8;
+                --user-message-bg: #3730a3;
+                --bot-message-bg: #1e293b;
+                --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            }
+
+            body {
+                background: linear-gradient(
+                    135deg,
+                    var(--darker-bg) 0%,
+                    var(--dark-bg) 100%
+                );
+                min-height: 100vh;
+                font-family: "Inter", sans-serif;
+                color: var(--text-primary);
+                display: flex;
+                flex-direction: column;
+            }
+
+            .chat-container {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                height: calc(100vh - 56px);
+                margin-top: 56px;
+            }
+
+            .chat-messages {
+                flex: 1;
+                overflow-y: auto;
+                padding: 1.5rem;
+            }
+
+            .message {
+                max-width: 80%;
+                margin-bottom: 1rem;
+                animation: fadeIn 0.3s ease;
+            }
+
+            .message-content {
+                padding: 1rem;
+                border-radius: 1rem;
+                box-shadow: var(--card-shadow);
+            }
+
+            .user-message {
+                margin-left: auto;
+            }
+
+            .user-message .message-content {
+                background: var(--user-message-bg);
+                border-bottom-right-radius: 0.25rem;
+            }
+
+            .bot-message {
+                margin-right: auto;
+            }
+
+            .bot-message .message-content {
+                background: var(--bot-message-bg);
+                border-bottom-left-radius: 0.25rem;
+            }
+
+            .chat-input {
+                background: var(--card-bg);
+                padding: 1rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .input-group {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 1.5rem;
+                overflow: hidden;
+                padding: 0.25rem;
+            }
+
+            .form-control {
+                background: transparent;
+                border: none;
+                color: var(--text-primary);
+                padding: 0.75rem 1.25rem;
+            }
+
+            .form-control:focus {
+                background: transparent;
+                box-shadow: none;
+                color: var(--text-primary);
+            }
+
+            .btn-send {
+                background: var(--primary-color);
+                border: none;
+                border-radius: 50%;
+                width: 42px;
+                height: 42px;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+            }
+
+            .btn-send:hover {
+                background: var(--secondary-color);
+                transform: scale(1.05);
+            }
+
+            .navbar {
+                background: rgba(30, 41, 59, 0.95) !important;
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .navbar-brand {
+                color: var(--primary-color) !important;
+                font-weight: 600;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Custom Scrollbar */
+            ::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 3px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: var(--primary-color);
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <i class="fas fa-robot me-2"></i>
+                    ChatBot
+                </a>
+                <div class="ms-auto d-flex align-items-center">
+                    <button class="btn btn-link text-secondary">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="chat-container">
+            <div class="chat-messages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        Hello! How can I help you today?
+                    </div>
+                </div>
+                <div class="message user-message">
+                    <div class="message-content">
+                        Hi! I have a question about your services.
+                    </div>
+                </div>
+                <div class="message bot-message">
+                    <div class="message-content">
+                        I'd be happy to help! Please go ahead and ask your
+                        question.
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <div class="container">
+                    <form>
+                        <div class="input-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Type your message..."
+                            />
+                            <button class="btn btn-send" type="submit">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
