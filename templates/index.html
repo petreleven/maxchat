@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Modern Chatbot Interface</title>
+        <title>Mental Health Chat</title>
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -12,215 +12,674 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
             rel="stylesheet"
         />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
         <style>
             :root {
-                --primary-color: #6366f1;
-                --secondary-color: #818cf8;
-                --dark-bg: #0f172a;
-                --darker-bg: #0a0f1d;
-                --card-bg: #1e293b;
-                --text-primary: #e2e8f0;
-                --text-secondary: #94a3b8;
-                --user-message-bg: #3730a3;
-                --bot-message-bg: #1e293b;
-                --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+                --pure-white: #ffffff;
+                --off-white: #f8f9fa;
+                --light-gray: #e9ecef;
+                --medium-gray: #ced4da;
+                --dark-gray: #6c757d;
+                --black: #212529;
+                --border-radius-lg: 16px;
+                --border-radius-md: 12px;
+                --border-radius-sm: 8px;
+                --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+                --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+                --transition: all 0.2s ease-in-out;
             }
 
             body {
-                background: linear-gradient(
-                    135deg,
-                    var(--darker-bg) 0%,
-                    var(--dark-bg) 100%
-                );
-                min-height: 100vh;
                 font-family: "Inter", sans-serif;
-                color: var(--text-primary);
-                display: flex;
-                flex-direction: column;
-            }
-
-            .chat-container {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                height: calc(100vh - 56px);
-                margin-top: 56px;
-            }
-
-            .chat-messages {
-                flex: 1;
-                overflow-y: auto;
-                padding: 1.5rem;
-            }
-
-            .message {
-                max-width: 80%;
-                margin-bottom: 1rem;
-                animation: fadeIn 0.3s ease;
-            }
-
-            .message-content {
-                padding: 1rem;
-                border-radius: 1rem;
-                box-shadow: var(--card-shadow);
-            }
-
-            .user-message {
-                margin-left: auto;
-            }
-
-            .user-message .message-content {
-                background: var(--user-message-bg);
-                border-bottom-right-radius: 0.25rem;
-            }
-
-            .bot-message {
-                margin-right: auto;
-            }
-
-            .bot-message .message-content {
-                background: var(--bot-message-bg);
-                border-bottom-left-radius: 0.25rem;
-            }
-
-            .chat-input {
-                background: var(--card-bg);
-                padding: 1rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.05);
-            }
-
-            .input-group {
-                background: rgba(255, 255, 255, 0.05);
-                border-radius: 1.5rem;
-                overflow: hidden;
-                padding: 0.25rem;
-            }
-
-            .form-control {
-                background: transparent;
-                border: none;
-                color: var(--text-primary);
-                padding: 0.75rem 1.25rem;
-            }
-
-            .form-control:focus {
-                background: transparent;
-                box-shadow: none;
-                color: var(--text-primary);
-            }
-
-            .btn-send {
-                background: var(--primary-color);
-                border: none;
-                border-radius: 50%;
-                width: 42px;
-                height: 42px;
+                background: var(--pure-white);
+                color: var(--black);
+                margin: 0;
                 padding: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: all 0.3s ease;
+                height: 100vh;
+                overflow: hidden;
+                font-weight: 400;
             }
 
-            .btn-send:hover {
-                background: var(--secondary-color);
-                transform: scale(1.05);
-            }
-
-            .navbar {
-                background: rgba(30, 41, 59, 0.95) !important;
-                backdrop-filter: blur(10px);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            }
-
-            .navbar-brand {
-                color: var(--primary-color) !important;
-                font-weight: 600;
-            }
-
-            @keyframes fadeIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(10px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            /* Custom Scrollbar */
+            /* Scrollbar styling */
             ::-webkit-scrollbar {
                 width: 6px;
+                height: 6px;
             }
 
             ::-webkit-scrollbar-track {
-                background: transparent;
+                background: var(--pure-white);
             }
 
             ::-webkit-scrollbar-thumb {
-                background: rgba(255, 255, 255, 0.2);
+                background: var(--medium-gray);
                 border-radius: 3px;
             }
 
-            ::-webkit-scrollbar-thumb:hover {
-                background: var(--primary-color);
+            /* Navbar styles */
+            .top-navbar {
+                background-color: var(--pure-white);
+                box-shadow: var(--shadow-sm);
+                padding: 0.75rem 2rem;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                height: 64px;
+            }
+
+            .navbar-brand {
+                color: var(--black);
+                font-weight: 700;
+                font-size: 1.25rem;
+                letter-spacing: -0.5px;
+            }
+
+            .navbar-menu a {
+                color: var(--black);
+                text-decoration: none;
+                margin-left: 24px;
+                font-weight: 500;
+                font-size: 0.9rem;
+                transition: var(--transition);
+                opacity: 0.7;
+            }
+
+            .navbar-menu a:hover {
+                opacity: 1;
+            }
+
+            .navbar-menu a.active {
+                opacity: 1;
+                position: relative;
+            }
+
+            .navbar-menu a.active::after {
+                content: "";
+                position: absolute;
+                bottom: -4px;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: var(--black);
+                border-radius: 2px;
+            }
+
+            /* Left sidebar */
+            .sidebar {
+                width: 280px;
+                height: calc(100vh - 64px);
+                position: fixed;
+                left: 0;
+                top: 64px;
+                padding: 1.5rem;
+                background: var(--pure-white);
+                color: var(--black);
+                border-right: 1px solid var(--light-gray);
+                border-radius: 0 var(--border-radius-lg) 0 0;
+                z-index: 900;
+                overflow-y: auto;
+            }
+
+            .sidebar h5 {
+                font-weight: 600;
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+                letter-spacing: -0.5px;
+            }
+
+            .sidebar h6 {
+                font-size: 0.85rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: var(--dark-gray);
+                margin-top: 1.5rem;
+                margin-bottom: 1rem;
+                font-weight: 600;
+            }
+
+            .session-card {
+                background: var(--off-white);
+                border-radius: var(--border-radius-md);
+                padding: 1rem;
+                transition: var(--transition);
+                cursor: pointer;
+                color: var(--black);
+                margin-bottom: 0.75rem;
+                border: 1px solid transparent;
+            }
+
+            .session-card:hover {
+                background: var(--pure-white);
+                border-color: var(--medium-gray);
+                box-shadow: var(--shadow-sm);
+                transform: translateY(-2px);
+            }
+
+            /* Main content area */
+            .content-wrapper {
+                margin-top: 64px;
+                display: flex;
+                height: calc(100vh - 64px);
+                background: var(--off-white);
+            }
+
+            .main-content {
+                margin-left: 280px;
+                width: calc(100% - 280px - 250px);
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+            }
+
+            .chat-container-wrapper {
+                background: var(--pure-white);
+                border-radius: var(--border-radius-lg);
+                box-shadow: var(--shadow-md);
+                height: 100%;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .chat-header {
+                padding: 1rem 1.5rem;
+                border-bottom: 1px solid var(--light-gray);
+                background: var(--pure-white);
+            }
+
+            .chat-header h5 {
+                margin: 0;
+                font-weight: 600;
+                font-size: 1rem;
+            }
+
+            .online-indicator {
+                width: 8px;
+                height: 8px;
+                background: #10b981;
+                border-radius: 50%;
+                display: inline-block;
+                margin-right: 6px;
+            }
+
+            .chat-container {
+                flex-grow: 1;
+                overflow-y: auto;
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                background: var(--pure-white);
+            }
+
+            .message {
+                display: flex;
+                margin-bottom: 0.75rem;
+                max-width: 85%;
+            }
+            .intro-message {
+                justify-content: center;
+                align-self: center;
+            }
+            .user-message {
+                justify-content: flex-end;
+                align-self: flex-end;
+            }
+
+            .message-content {
+                padding: 0.75rem 1rem;
+                border-radius: var(--border-radius-md);
+                box-shadow: var(--shadow-sm);
+            }
+
+            .user-message .message-content {
+                background: var(--black);
+                color: var(--pure-white);
+                border-bottom-right-radius: 4px;
+            }
+            .intro-message .message-content {
+                background: var(--black);
+                color: var(--pure-white);
+                border-bottom-right-radius: 4px;
+            }
+
+            .bot-message .message-content {
+                background: var(--light-gray);
+                color: var(--black);
+                border-bottom-left-radius: 4px;
+            }
+
+            .message-time {
+                font-size: 0.7rem;
+                color: var(--dark-gray);
+                margin-top: 4px;
+                text-align: right;
+            }
+
+            .chat-input-container {
+                padding: 1rem 1.5rem;
+                background: var(--pure-white);
+                border-top: 1px solid var(--light-gray);
+            }
+
+            .input-group {
+                background: var(--off-white);
+                border-radius: 24px;
+                padding: 0.5rem 0.75rem;
+                display: flex;
+                align-items: center;
+            }
+
+            .form-control {
+                border: none;
+                background: transparent;
+                padding: 0.5rem;
+                font-size: 0.95rem;
+            }
+
+            .form-control:focus {
+                box-shadow: none;
+                outline: none;
+            }
+
+            .btn-attachment {
+                background: transparent;
+                color: var(--dark-gray);
+                border: none;
+                margin-right: 4px;
+                font-size: 1.1rem;
+                padding: 0.25rem 0.5rem;
+                border-radius: var(--border-radius-sm);
+                transition: var(--transition);
+            }
+
+            .btn-attachment:hover {
+                color: var(--black);
+                background: var(--light-gray);
+            }
+
+            .btn-send {
+                background: var(--black);
+                color: white;
+                border-radius: 50%;
+                width: 36px;
+                height: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: none;
+                transition: var(--transition);
+                box-shadow: var(--shadow-sm);
+            }
+
+            .btn-send:hover {
+                transform: scale(1.05);
+            }
+
+            /* Right sidebar */
+            .right-sidebar {
+                width: 250px;
+                height: calc(100vh - 64px);
+                position: fixed;
+                right: 0;
+                top: 64px;
+                background: var(--pure-white);
+                border-left: 1px solid var(--light-gray);
+                padding: 1.5rem;
+                overflow-y: auto;
+            }
+
+            .right-sidebar h6 {
+                font-size: 0.85rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: var(--dark-gray);
+                margin-bottom: 1rem;
+                font-weight: 600;
+            }
+
+            .resource-item {
+                display: flex;
+                align-items: center;
+                padding: 0.75rem;
+                border-radius: var(--border-radius-md);
+                margin-bottom: 0.75rem;
+                cursor: pointer;
+                transition: var(--transition);
+                background: var(--off-white);
+            }
+
+            .resource-item:hover {
+                background: var(--light-gray);
+            }
+
+            .resource-icon {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                background: var(--black);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 12px;
+                font-size: 0.9rem;
+            }
+
+            .resource-text {
+                font-size: 0.9rem;
+                font-weight: 500;
+            }
+
+            .mood-card {
+                padding: 0.75rem;
+                background: var(--off-white);
+                border-radius: var(--border-radius-md);
+                margin-bottom: 0.75rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .mood-date {
+                font-size: 0.85rem;
+                font-weight: 500;
+            }
+
+            .mood-icon {
+                font-size: 1.25rem;
+            }
+
+            .emergency-card {
+                background: var(--light-gray);
+                border-radius: var(--border-radius-md);
+                padding: 1rem;
+                margin-top: 1.5rem;
+            }
+
+            .emergency-card p {
+                margin-bottom: 0.5rem;
+                font-size: 0.85rem;
+                display: flex;
+                align-items: center;
+            }
+
+            .emergency-card i {
+                margin-right: 8px;
+                color: var(--black);
             }
         </style>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg fixed-top">
-            <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="#">
-                    <i class="fas fa-robot me-2"></i>
-                    ChatBot
-                </a>
-                <div class="ms-auto d-flex align-items-center">
-                    <button class="btn btn-link text-secondary">
-                        <i class="fas fa-cog"></i>
-                    </button>
-                </div>
+        <!-- Navbar -->
+        <nav
+            class="top-navbar d-flex justify-content-between align-items-center"
+        >
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fas fa-comment-medical me-2"></i>
+                MindSpace
+            </a>
+            <div class="navbar-menu">
+                <a href="#" class="active">Chat</a>
+                <a href="#">Sessions</a>
+                <a href="#">Resources</a>
+                <a href="#">Journal</a>
+                <a href="#"><i class="fas fa-user-circle"></i></a>
             </div>
         </nav>
 
-        <div class="chat-container">
-            <div class="chat-messages">
-                <div class="message bot-message">
-                    <div class="message-content">
-                        Hello! How can I help you today?
+        <div class="content-wrapper">
+            <!-- Left sidebar -->
+            <div class="sidebar">
+                <h5>Welcome back</h5>
+                <p class="text-muted mb-4" style="font-size: 0.9rem">
+                    Your private space for support and connection.
+                </p>
+
+                <h6>Available Counsellors</h6>
+                <div class="session-card">
+                    <div
+                        class="d-flex justify-content-between align-items-center"
+                    >
+                        <div class="d-flex align-items-center">
+                            <i
+                                class="fas fa-user-md me-2"
+                                style="color: var(--black)"
+                            ></i>
+                            <div>
+                                <div style="font-weight: 500">
+                                    Dr. Sarah Wilson
+                                </div>
+                                <div
+                                    style="
+                                        font-size: 0.8rem;
+                                        color: var(--dark-gray);
+                                    "
+                                >
+                                    Individual Therapy
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex justify-content-between mt-2"
+                        style="font-size: 0.8rem"
+                    >
+                        <div>Tomorrow</div>
+                        <div>2:00 PM</div>
                     </div>
                 </div>
-                <div class="message user-message">
-                    <div class="message-content">
-                        Hi! I have a question about your services.
+
+                <h6>Your Chats</h6>
+                <div class="session-card">
+                    <div
+                        class="d-flex justify-content-between align-items-center"
+                    >
+                        <div class="d-flex align-items-center">
+                            <i
+                                class="fas fa-robot me-2"
+                                style="color: var(--black)"
+                            ></i>
+                            <div>
+                                <div style="font-weight: 500">
+                                    Support Assistant
+                                </div>
+                                <div
+                                    style="
+                                        font-size: 0.8rem;
+                                        color: var(--dark-gray);
+                                    "
+                                >
+                                    Active now
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="message bot-message">
-                    <div class="message-content">
-                        I'd be happy to help! Please go ahead and ask your
-                        question.
+
+                <div class="session-card">
+                    <div
+                        class="d-flex justify-content-between align-items-center"
+                    >
+                        <div class="d-flex align-items-center">
+                            <i
+                                class="fas fa-user-md me-2"
+                                style="color: var(--black)"
+                            ></i>
+                            <div>
+                                <div style="font-weight: 500">
+                                    Dr. Michael Chen
+                                </div>
+                                <div
+                                    style="
+                                        font-size: 0.8rem;
+                                        color: var(--dark-gray);
+                                    "
+                                >
+                                    Last message: Yesterday
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="chat-input">
-                <div class="container">
-                    <form>
+            <!-- Main chat area -->
+            <div class="main-content">
+                <div class="chat-container-wrapper">
+                    <div
+                        class="chat-header d-flex justify-content-between align-items-center"
+                    >
+                        <div>
+                            <h5>
+                                <i class="fas fa-robot me-2"></i>Support
+                                Assistant
+                            </h5>
+                            <div
+                                style="
+                                    font-size: 0.8rem;
+                                    color: var(--dark-gray);
+                                "
+                            >
+                                <span class="online-indicator"></span>Online •
+                                Available 24/7
+                            </div>
+                        </div>
+                        <div>
+                            <button
+                                class="btn btn-sm"
+                                style="
+                                    background: var(--off-white);
+                                    border-radius: 50%;
+                                    width: 32px;
+                                    height: 32px;
+                                "
+                            >
+                                <i
+                                    class="fas fa-ellipsis-v"
+                                    style="color: var(--dark-gray)"
+                                ></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="chat-container">
+                        <div class="message bot-message">
+                            <div class="message-content">
+                                Hello! How are you feeling today?
+                                <div class="message-time">10:05 AM</div>
+                            </div>
+                        </div>
+
+                        <div class="message user-message">
+                            <div class="message-content">
+                                Hey, I need someone to talk to.
+                                <div class="message-time">10:07 AM</div>
+                            </div>
+                        </div>
+
+                        <div class="message intro-message">
+                            <div class="message-content">
+                                <div
+                                    class="resource-icon text-center"
+                                    style="margin: auto"
+                                >
+                                    <i class="fas fa-heart px-auto"></i>
+                                </div>
+                                <p>Welcome</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-container">
                         <div class="input-group">
+                            <button class="btn-attachment">
+                                <i class="fas fa-paperclip"></i>
+                            </button>
                             <input
                                 type="text"
                                 class="form-control"
+                                id="messageToSend"
                                 placeholder="Type your message..."
                             />
-                            <button class="btn btn-send" type="submit">
+                            <button class="btn-send" onclick="sendMessage()">
                                 <i class="fas fa-paper-plane"></i>
                             </button>
                         </div>
-                    </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right sidebar -->
+            <div class="right-sidebar">
+                <h6>Helpful Resources</h6>
+
+                <div class="resource-item">
+                    <div class="resource-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="resource-text">Stress Management Guide</div>
+                </div>
+
+                <div class="resource-item">
+                    <div class="resource-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="resource-text">Self-Care Techniques</div>
+                </div>
+
+                <div class="resource-item">
+                    <div class="resource-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="resource-text">Mindfulness Practices</div>
+                </div>
+
+                <h6 class="mt-4">Your Mood</h6>
+
+                <div class="mood-card">
+                    <div class="mood-date">Today</div>
+                    <div class="mood-icon">😊</div>
+                </div>
+
+                <div class="mood-card">
+                    <div class="mood-date">Yesterday</div>
+                    <div class="mood-icon">😐</div>
+                </div>
+
+                <div class="mood-card">
+                    <div class="mood-date">Monday</div>
+                    <div class="mood-icon">😔</div>
+                </div>
+
+                <div class="mood-card">
+                    <div class="mood-date">Sunday</div>
+                    <div class="mood-icon">🙂</div>
+                </div>
+
+                <div class="emergency-card">
+                    <h6
+                        style="
+                            text-transform: none;
+                            letter-spacing: 0;
+                            margin-bottom: 0.75rem;
+                        "
+                    >
+                        Need immediate help?
+                    </h6>
+                    <p><i class="fas fa-phone-alt"></i> 988 Crisis Line</p>
+                    <p>
+                        <i class="fas fa-comment-dots"></i> Text HOME to 741741
+                    </p>
                 </div>
             </div>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script></script>
     </body>
 </html>
