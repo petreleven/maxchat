@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 flask = "*"
 flask-socketio = "*"
+openai = "*"
+transformers = "*"
+google-genai = "*"
 
 [dev-packages]
 

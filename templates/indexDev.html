@@ -431,7 +431,12 @@
                 <a href="#">Sessions</a>
                 <a href="#">Resources</a>
                 <a href="#">Journal</a>
-                <a href="#"><i class="fas fa-user-circle"></i></a>
+                {% if 'username' in session %}
+                <span>Welcome, {{ session['username'] }}! </span>
+                <a href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
             </div>
         </nav>
 
@@ -609,7 +614,7 @@
                                 id="messageToSend"
                                 placeholder="Type your message..."
                             />
-                            <button class="btn-send" onclick="detectClick()">
+                            <button class="btn-send" onclick="sendMessage()">
                                 <i class="fas fa-paper-plane"></i>
                             </button>
                         </div>
@@ -693,42 +698,40 @@
             socket.on("message", message);
             function message(msg) {
                 console.log("I RECEIVED: ", msg);
-                var container = document.getElementById("chat-container");
-                container.insertAdjacentHTML(
+                var chatContainer = document.getElementById("chat-container");
+                chatContainer.insertAdjacentHTML(
                     "beforeend",
                     `
-                  <div class="message user-message">
+                  <div class="message bot-message">
                       <div class="message-content">
-                          ${typedMessage}
-                          <div class="message-time">10:07 AM</div>
+                          ${msg}                          <div class="message-time">10:05 AM</div>
                       </div>
-                  </div>`,
+                  </div>
+                  `,
+                );
+                var chatContainer = document.getElementById("chat-container");
+                chatContainer.insertAdjcentHtml(
+                    "beforeend",
+                    `
+                  <div class="message bot-message">
+                      <div class="message-content">
+                          Hello! How are you feeling today?
+                          <div class="message-time">10:05 AM</div>
+                      </div>
+                  </div>
+                  `,
                 );
             }
+
             socket.on("disconnect", disconnect);
             function disconnect() {
                 console.log("Disconnected");
             }
 
-            function detectClick() {
-                console.log("clicked");
-                //TODO - grab the message that we typed and send it
-                var x = document.getElementById("messageToSend");
-                var typedMessage = x.value;
-                //send the message
+            function sendMessage() {
+                var inputElement = document.getElementById("messageToSend");
+                var typedMessage = inputElement.value;
                 socket.emit("message", typedMessage);
-                //make my message appear
-                var container = document.getElementById("chat-container");
-                container.insertAdjacentHTML(
-                    "beforeend",
-                    `
-                  <div class="message user-message">
-                      <div class="message-content">
-                          ${typedMessage}
-                          <div class="message-time">10:07 AM</div>
-                      </div>
-                  </div>`,
-                );
             }
         </script>
     </body>
