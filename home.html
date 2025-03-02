@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>MindWell - Mental Health Support</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --pure-white: #ffffff;
+                --off-white: #f8f9fa;
+                --light-gray: #e9ecef;
+                --medium-gray: #ced4da;
+                --dark-gray: #6c757d;
+                --black: #212529;
+                --primary-color: #4361ee;
+                --secondary-color: #3f37c9;
+                --accent-color: #4cc9f0;
+                --border-radius-lg: 16px;
+                --border-radius-md: 12px;
+                --border-radius-sm: 8px;
+                --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+                --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+                --transition: all 0.2s ease-in-out;
+            }
+
+            body {
+                font-family: "Inter", sans-serif;
+                background: var(--pure-white);
+                color: var(--black);
+                margin: 0;
+                padding: 0;
+                font-weight: 400;
+            }
+
+            /* Scrollbar styling */
+            ::-webkit-scrollbar {
+                width: 6px;
+                height: 6px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: var(--pure-white);
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: var(--medium-gray);
+                border-radius: 3px;
+            }
+
+            /* Navbar styles */
+            .top-navbar {
+                background-color: var(--pure-white);
+                box-shadow: var(--shadow-sm);
+                padding: 0.75rem 2rem;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                height: 64px;
+            }
+
+            .navbar-brand {
+                color: var(--black);
+                font-weight: 700;
+                font-size: 1.25rem;
+                letter-spacing: -0.5px;
+            }
+
+            .navbar-menu a {
+                color: var(--black);
+                text-decoration: none;
+                margin-left: 24px;
+                font-weight: 500;
+                font-size: 0.9rem;
+                transition: var(--transition);
+                opacity: 0.7;
+            }
+
+            .navbar-menu a:hover {
+                opacity: 1;
+            }
+
+            .navbar-menu a.active {
+                opacity: 1;
+                position: relative;
+            }
+
+            .navbar-menu a.active::after {
+                content: "";
+                position: absolute;
+                bottom: -4px;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: var(--black);
+                border-radius: 2px;
+            }
+
+            /* Hero section */
+            .hero-section {
+                padding: 120px 0 80px;
+                background: linear-gradient(to right, #4361ee, #3a0ca3);
+                color: white;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+                font-weight: 700;
+                margin-bottom: 1.5rem;
+                letter-spacing: -1px;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+                max-width: 600px;
+                margin: 0 auto 2.5rem;
+                opacity: 0.9;
+                line-height: 1.6;
+            }
+
+            /* Main action buttons */
+            .action-buttons {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                margin: 2rem 0 3rem;
+            }
+
+            .action-button {
+                padding: 1rem 2rem;
+                border-radius: var(--border-radius-md);
+                font-weight: 600;
+                font-size: 1.1rem;
+                transition: var(--transition);
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                box-shadow: var(--shadow-md);
+            }
+
+            .chat-button {
+                background-color: var(--pure-white);
+                color: var(--primary-color);
+            }
+
+            .chat-button:hover {
+                background-color: var(--off-white);
+                transform: translateY(-3px);
+            }
+
+            .resources-button {
+                background-color: rgba(255, 255, 255, 0.2);
+                color: var(--pure-white);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+            }
+
+            .resources-button:hover {
+                background-color: rgba(255, 255, 255, 0.3);
+                transform: translateY(-3px);
+            }
+
+            /* Features section */
+            .features-section {
+                padding: 80px 0;
+                background-color: var(--pure-white);
+            }
+
+            .section-title {
+                text-align: center;
+                margin-bottom: 3rem;
+                font-weight: 700;
+                font-size: 2.2rem;
+                letter-spacing: -0.5px;
+            }
+
+            .feature-card {
+                background-color: var(--pure-white);
+                border-radius: var(--border-radius-lg);
+                padding: 2rem;
+                box-shadow: var(--shadow-md);
+                height: 100%;
+                transition: var(--transition);
+            }
+
+            .feature-card:hover {
+                transform: translateY(-5px);
+            }
+
+            .feature-icon {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background: var(--primary-color);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 1.5rem;
+                font-size: 1.5rem;
+            }
+
+            .feature-title {
+                font-weight: 600;
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+
+            .feature-description {
+                color: var(--dark-gray);
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            /* Milestones section */
+            .milestones-section {
+                padding: 80px 0;
+                background-color: var(--off-white);
+            }
+
+            .timeline {
+                position: relative;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .timeline::after {
+                content: '';
+                position: absolute;
+                width: 4px;
+                background-color: var(--primary-color);
+                top: 0;
+                bottom: 0;
+                left: 50%;
+                margin-left: -2px;
+            }
+
+            .milestone {
+                padding: 10px 40px;
+                position: relative;
+                width: 50%;
+                box-sizing: border-box;
+            }
+
+            .milestone::after {
+                content: '';
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                right: -10px;
+                background-color: var(--pure-white);
+                border: 4px solid var(--primary-color);
+                top: 15px;
+                border-radius: 50%;
+                z-index: 1;
+            }
+
+            .left {
+                left: 0;
+            }
+
+            .right {
+                left: 50%;
+            }
+
+            .right::after {
+                left: -10px;
+            }
+
+            .milestone-content {
+                padding: 20px 30px;
+                background-color: var(--pure-white);
+                position: relative;
+                border-radius: var(--border-radius-md);
+                box-shadow: var(--shadow-sm);
+            }
+
+            .milestone-date {
+                font-weight: 700;
+                color: var(--primary-color);
+                margin-bottom: 0.5rem;
+            }
+
+            /* Footer */
+            .footer {
+                background-color: var(--black);
+                color: white;
+                padding: 60px 0 30px;
+            }
+
+            .footer-title {
+                font-weight: 700;
+                margin-bottom: 1.5rem;
+                font-size: 1.2rem;
+            }
+
+            .footer-links {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .footer-links li {
+                margin-bottom: 0.75rem;
+            }
+
+            .footer-links a {
+                color: var(--medium-gray);
+                text-decoration: none;
+                transition: var(--transition);
+            }
+
+            .footer-links a:hover {
+                color: var(--pure-white);
+            }
+
+            .copyright {
+                margin-top: 3rem;
+                padding-top: 1.5rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                text-align: center;
+                color: var(--medium-gray);
+                font-size: 0.9rem;
+            }
+
+            /* Emergency banner */
+            .emergency-banner {
+                background-color: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 15px 25px;
+                border-radius: var(--border-radius-md);
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                box-shadow: var(--shadow-md);
+                z-index: 100;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .emergency-text {
+                font-weight: 600;
+                margin: 0;
+                color: var(--dark-gray);
+            }
+
+            .emergency-number {
+                background-color: #dc3545;
+                color: white;
+                padding: 8px 15px;
+                border-radius: var(--border-radius-sm);
+                font-weight: 700;
+                text-decoration: none;
+            }
+
+            .emergency-number:hover {
+                background-color: #c82333;
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 991.98px) {
+                .timeline::after {
+                    left: 31px;
+                }
+                
+                .milestone {
+                    width: 100%;
+                    padding-left: 70px;
+                    padding-right: 25px;
+                }
+                
+                .milestone::after {
+                    left: 21px;
+                }
+                
+                .right {
+                    left: 0%;
+                }
+                
+                .hero-title {
+                    font-size: 2.5rem;
+                }
+
+                .action-buttons {
+                    flex-direction: column;
+                    align-items: center;
+                }
+            }
+
+            @media (max-width: 767.98px) {
+                .top-navbar {
+                    padding: 0.75rem 1rem;
+                }
+                
+                .navbar-menu a {
+                    margin-left: 15px;
+                }
+                
+                .hero-title {
+                    font-size: 2rem;
+                }
+                
+                .hero-subtitle {
+                    font-size: 1rem;
+                }
+                
+                .section-title {
+                    font-size: 1.8rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Navigation -->
+        <nav class="top-navbar d-flex justify-content-between align-items-center">
+            <a href="#" class="navbar-brand">MindWell</a>
+            <div class="navbar-menu">
+                <a href="#" class="active">Home</a>
+                <a href="#">Resources</a>
+                <a href="#">Chat Support</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Your Mental Health Matters</h1>
+                <p class="hero-subtitle">Access support, resources, and guidance on your journey to better mental wellbeing. You don't have to face challenges alone.</p>
+                
+                <div class="action-buttons">
+                    <a href="#" class="action-button chat-button">
+                        <i class="fas fa-comment-dots"></i>
+                        Chat with Support Bot
+                    </a>
+                    <a href="#" class="action-button resources-button">
+                        <i class="fas fa-book-medical"></i>
+                        Mental Health Resources
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">How We Can Help</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3 class="feature-title">24/7 Support Bot</h3>
+                            <p class="feature-description">Access our AI-powered support bot anytime for immediate guidance, coping strategies, and mental health information.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h3 class="feature-title">Resource Library</h3>
+                            <p class="feature-description">Explore our curated collection of articles, videos, and tools to help you understand and manage various mental health concerns.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="feature-title">Mood Tracking</h3>
+                            <p class="feature-description">Monitor your emotional wellbeing over time with our easy-to-use mood tracking tools and get personalized insights.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Milestones Section -->
+        <section class="milestones-section">
+            <div class="container">
+                <h2 class="section-title">Our Roadmap</h2>
+                <div class="timeline">
+                    <div class="milestone left">
+                        <div class="milestone-content">
+                            <div class="milestone-date">April 2025</div>
+                            <h3>Live Counselor Chat</h3>
+                            <p>Connect with licensed mental health professionals through our secure messaging platform for personalized guidance and support.</p>
+                        </div>
+                    </div>
+                    <div class="milestone right">
+                        <div class="milestone-content">
+                            <div class="milestone-date">June 2025</div>
+                            <h3>Mental Health Blog</h3>
+                            <p>Launch of our blog featuring articles from mental health experts, personal stories, and the latest research in mental wellbeing.</p>
+                        </div>
+                    </div>
+                    <div class="milestone left">
+                        <div class="milestone-content">
+                            <div class="milestone-date">August 2025</div>
+                            <h3>Community Support Groups</h3>
+                            <p>Join moderated peer support groups based on specific mental health concerns, life stages, or experiences.</p>
+                        </div>
+                    </div>
+                    <div class="milestone right">
+                        <div class="milestone-content">
+                            <div class="milestone-date">October 2025</div>
+                            <h3>Mobile Application</h3>
+                            <p>Access all our mental health tools and resources on-the-go with our dedicated mobile app for iOS and Android.</p>
+                        </div>
+                    </div>
+                    <div class="milestone left">
+                        <div class="milestone-content">
+                            <div class="milestone-date">December 2025</div>
+                            <h3>Video Counseling Sessions</h3>
+                            <p>Schedule face-to-face video sessions with licensed therapists and counselors through our secure platform.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <h5 class="footer-title">MindWell</h5>
+                        <p>Our mission is to make mental health support accessible to everyone, providing tools and resources for better wellbeing.</p>
+                    </div>
+                    <div class="col-md-4 col-lg-2 mb-4">
+                        <h5 class="footer-title">Support</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">FAQs</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Feedback</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-lg-2 mb-4">
+                        <h5 class="footer-title">Resources</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Articles</a></li>
+                            <li><a href="#">Videos</a></li>
+                            <li><a href="#">Exercises</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-lg-2 mb-4">
+                        <h5 class="footer-title">Legal</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Use</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 mb-4">
+                        <h5 class="footer-title">Follow Us</h5>
+                        <div class="d-flex gap-3">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="copyright">
+                    &copy; 2025 MindWell. All rights reserved.
+                </div>
+            </div>
+        </footer>
+
+        <!-- Emergency Banner -->
+        <div class="emergency-banner">
+            <p class="emergency-text">In crisis? Get immediate help:</p>
+            <a href="tel:988" class="emergency-number">988</a>
+        </div>
+
+        <!-- Scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
